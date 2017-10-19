@@ -13,4 +13,10 @@ client.on('message', message => {
 	}
 })
 
+client.on('ready', () => {
+	client.user.setGame("being developed by the best chef");
+	client.user.setStatus("dnd");
+	console.log("PoniJS [Dan] is online!");
+})
+
 client.login(settings.token);
