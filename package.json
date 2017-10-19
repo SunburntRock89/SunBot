@@ -4,7 +4,7 @@
   "description": "This is a Javascript version of the original bot by Da532.",
   "main": "bot.js",
   "dependencies": {
-    "discord.js": "github:hydrabolt/discord.js"
+    "discord.js": "^11.1.0"
   },
   "devDependencies": {},
   "scripts": {
