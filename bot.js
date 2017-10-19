@@ -24,4 +24,12 @@ client.on('ready', () => {
     console.log("PoniJS [Dan] is online!");
 })
 
+Object.assign(String.prototype, {
+    escapeRegex() {
+        const matchOperators = /[|\\{}()[\]^$+*?.]/g;
+        return this.replace(matchOperators, "\\$&");
+    },
+});
+
+
 client.login(settings.token);
