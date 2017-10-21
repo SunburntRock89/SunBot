@@ -1,3 +1,5 @@
+const settings = require('../config.json');
+
 module.exports = async (client, msg, suffix) => {
     const Discord = require('discord.js');
     const embed = new Discord.RichEmbed();

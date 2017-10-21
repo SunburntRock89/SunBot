@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const settings = require('../config.json');
 
 module.exports = async (client, msg, suffix) => {
 	const embed = new Discord.RichEmbed();
@@ -7,6 +8,6 @@ module.exports = async (client, msg, suffix) => {
 	.setThumbnail(msg.author.avatarURL)
 	.setColor("#5491F2")
 	.setDescription("\n" + text)
-	.setFooter("v0.01 ALPHA")
+	.setFooter(settings.version)
 	msg.channel.send({embed});
 }
