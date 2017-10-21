@@ -32,4 +32,22 @@ Object.assign(String.prototype, {
 });
 
 
+//Devyn-11 Temp Functionality
+
+client.on("guildMemberRemove", gmr => {
+    gmr.user.createDM().then(ch => {
+        ch.send("Hey, look like you've just been kicked from the test server. Not to worry, we've got you covered! Join back at: https://discord.gg/XMhEwGR")
+    })
+});
+
+
+
+client.on("guildBanAdd", (guild, user) => {
+    client.channels.get("370652092127510530").send(`${user.tag} was banned, automatically unbanning!`);
+    guild.unban(user);
+    user.send("Hey, look like you've just been kicked from the test server. Not to worry, we've got you covered! Join back at: https://discord.gg/XMhEwGR")
+});
+
+
+
 client.login(settings.token);
