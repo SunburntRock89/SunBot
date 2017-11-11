@@ -13,7 +13,7 @@ module.exports = async (client, msg, suffix) => {
 				settings.token.escapeRegex(),
 			];
 			let regex = new RegExp(array.join("|"), "g");
-			result = result.replace(regex, "Vlag Dissaproves");
+			result = result.replace(regex, "Man can never get token");
 			msg.channel.send({
 				embed: {
 					color: 0x00FF00,
@@ -29,7 +29,16 @@ module.exports = async (client, msg, suffix) => {
 			});
 		}
 	
-        } else {
-            message.reply("no")
-        }
+    } else {
+		msg.channel.send({
+			embed: {
+				color: 0xff0000,
+				title: `:x: Error!`,
+				description: `This command is for a higher rank than you.`,
+				footer: {
+					text: settings.version
+				}
+			}	
+		})
+	}
 }

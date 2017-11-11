@@ -5,7 +5,7 @@ module.exports = async (client, msg, suffix) => {
 	if(msg.mentions.users.size == 0) {
 		return msg.channel.send(`**${msg.author} You need to mention someone! :face_palm:**`).catch(console.error);
 	}
-	embed.setTitle("PoniJS")
+	embed.setTitle("SunBot")
 	.addField("Username", msg.mentions.members.first().user.username, true)
 	.addField("ID", msg.mentions.members.first().user.id, true)
 	.addField("Date of Creation", msg.mentions.members.first().user.createdAt)

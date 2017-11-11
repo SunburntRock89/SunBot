@@ -2,6 +2,17 @@ const Discord = require('discord.js');
 const settings = require('./config.json');
 const client = new Discord.Client();
 
+var mongoose = require('mongoose');
+mongoose.connect(`${settings.mongoUrl}`, { useMongoClient: true });
+mongoose.Promise = global.Promise;
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("Mongoose connected successfully")
+});
+
+
 client.on("message", async msg => {
     if (msg.author.bot) return null;
     if (!msg.content.startsWith(settings.prefix)) return null;
@@ -19,9 +30,9 @@ client.on("message", async msg => {
 });
 
 client.on('ready', () => {
-    client.user.setGame("being developed by the best chef");
+    client.user.setGame("being developed by the best rock");
     client.user.setStatus("dnd");
-    console.log("PoniJS [Dan] is online!");
+    console.log(`Logged in as ${client.user.username}#${client.user.discriminator}`);
 })
 
 Object.assign(String.prototype, {
@@ -30,24 +41,5 @@ Object.assign(String.prototype, {
         return this.replace(matchOperators, "\\$&");
     },
 });
-
-
-//Devyn-11 Temp Functionality
-
-client.on("guildMemberRemove", gmr => {
-    gmr.user.createDM().then(ch => {
-        ch.send("Hey, look like you've just been kicked from the test server. Not to worry, we've got you covered! Join back at: https://discord.gg/XMhEwGR")
-    })
-});
-
-
-
-client.on("guildBanAdd", (guild, user) => {
-    client.channels.get("370652092127510530").send(`${user.tag} was banned, automatically unbanning!`);
-    guild.unban(user);
-    user.send("Hey, look like you've just been kicked from the test server. Not to worry, we've got you covered! Join back at: https://discord.gg/XMhEwGR")
-});
-
-
 
 client.login(settings.token);

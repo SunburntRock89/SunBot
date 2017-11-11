@@ -5,7 +5,7 @@ module.exports = async (client, msg, suffix) => {
         embed: {
             color: 0x5491F2,
             author: {
-                name: "PoniJS"
+                name: "SunBot"
             },
             description: `Pong! :ping_pong:`,
             footer: {
