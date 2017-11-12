@@ -1,9 +1,9 @@
-const settings = require('../config.json');
-const Discord = require('discord.js');
+const settings = require("../config.json");
+const Discord = require("discord.js");
 
-module.exports = async (client, msg, suffix) => {
-    if (settings.maintainers.some(id => msg.author.id === id)) {
-        try {
+module.exports = async(client, msg, suffix) => {
+	if (settings.maintainers.includes(msg.author.id)) {
+		try {
 			if (suffix.startsWith("```js") && suffix.endsWith("```")) suffix = suffix.substring(5, suffix.length - 3);
 			const asyncify = code => `(async () => {\nreturn ${code.trim()}\n})()`;
 			let result = await eval(asyncify(suffix));
@@ -28,17 +28,16 @@ module.exports = async (client, msg, suffix) => {
 				},
 			});
 		}
-	
-    } else {
+	} else {
 		msg.channel.send({
 			embed: {
 				color: 0xff0000,
 				title: `:x: Error!`,
 				description: `This command is for a higher rank than you.`,
 				footer: {
-					text: settings.version
-				}
-			}	
-		})
+					text: settings.version,
+				},
+			},
+		});
 	}
-}
+};

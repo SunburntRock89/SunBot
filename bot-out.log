@@ -1,0 +1,14 @@
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:14:30.245Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:26:08.670Z"}
+{"message":"Failed to connect to database","name":"MongoError","stack":"Error: connect ECONNREFUSED 127.0.0.1:27017\n    at Object._errnoException (util.js:1031:13)\n    at _exceptionWithHostPort (util.js:1052:20)\n    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1195:14)","level":"error","timestamp":"2017-11-12T00:26:08.759Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:28:33.291Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:30:08.906Z"}
+{"svrid":"186570298185744394","level":"error","message":"Failed to find server data for serverNewMember","timestamp":"2017-11-12T00:30:13.957Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:35:39.617Z"}
+{"svrid":"186570298185744394","level":"error","message":"Failed to find server data for serverNewMember","timestamp":"2017-11-12T00:36:02.626Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:38:02.254Z"}
+{"svrid":"186570298185744394","level":"error","message":"Failed to find server data for serverNewMember","timestamp":"2017-11-12T00:38:04.610Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:38:40.259Z"}
+{"svrid":"186570298185744394","level":"error","message":"Failed to find server data for serverNewMember","timestamp":"2017-11-12T00:38:51.259Z"}
+{"level":"info","message":"Logged in as SunBot#7771","timestamp":"2017-11-12T00:39:50.176Z"}
+{"svrid":"186570298185744394","level":"error","message":"Failed to find server data for serverNewMember","timestamp":"2017-11-12T00:40:14.517Z"}

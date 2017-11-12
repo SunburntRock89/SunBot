@@ -4,8 +4,10 @@
   "description": "This is a Javascript version of the original bot by Da532.",
   "main": "bot.js",
   "dependencies": {
-    "discord.js": "^11.1.0",
-    "mongoose": "^4.13.1"
+    "discord.js": "github:hydrabolt/discord.js",
+    "mongoose": "^4.10.8",
+    "mongoose-findorcreate": "^2.0.0",
+    "winston": "^2.4.0"
   },
   "devDependencies": {},
   "scripts": {
