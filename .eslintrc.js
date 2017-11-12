@@ -8,8 +8,8 @@ module.exports = {
 		node: true,
 	},
 	globals: {
-		config: true,
-		commands: true
+		Servers: true,
+		Database: true,
 	},
 	rules: {
 		"no-compare-neg-zero": "error",

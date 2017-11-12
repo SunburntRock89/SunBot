@@ -5,7 +5,7 @@
   "main": "bot.js",
   "dependencies": {
     "discord.js": "github:hydrabolt/discord.js",
-    "mongoose": "^4.10.8",
+    "mongoose": "^4.13.1",
     "mongoose-findorcreate": "^2.0.0",
     "winston": "^2.4.0"
   },

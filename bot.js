@@ -4,35 +4,23 @@ const client = new Discord.Client();
 const database = require("./Schemas/Database.js");
 const winston = require("winston");
 
+Object.assign(String.prototype, {
+	escapeRegex() {
+		const matchOperators = /[|\\{}()[\]^$+*?.]/g;
+		return this.replace(matchOperators, "\\$&");
+	},
+});
+
 winston.add(winston.transports.File, {
 	filename: "bot-out.log",
 });
 
-const eventHandlers = {
-	guildCreate: require("./Events/guildCreate.js"),
-	guildMemberAdd: require("./Events/guildMemberAdd.js"),
-};
-
-database.initialize(settings.mongoURL, err => {
-	if (err) {
-		winston.error("Failed to connect to database", err);
-	} else {
-		const db = database.get();
-
-		client.on("guildCreate", svr => {
-			eventHandlers.guildCreate(client, db, settings, winston, svr); // .catch(err => {
-			// winston.error(err);
-			// });
-		});
-
-		client.on("guildMemberAdd", (svr, member, guild) => {
-			eventHandlers.guildMemberAdd(client, db, settings, winston, svr, guild, member); // .catch(err => {
-			// winston.error(err);
-			// });
-		});
-	}
+database.initialize(settings.mongoURL).then(db => {
+	winston.info(`Database Loaded!`);
+}).catch(err => {
+	winston.error(`Failed to launch Database, this is probably your fault you Mongo`, err);
+	process.exit(1);
 });
-
 
 client.on("message", async msg => {
 	if (msg.author.bot) return null;
@@ -52,19 +40,13 @@ client.on("message", async msg => {
 });
 
 client.on("ready", () => {
-	client.user.setGame("being developed by the best rock");
+	client.user.setStatus("being developed by the best rock");
 	client.user.setStatus("dnd");
 	winston.info(`Logged in as ${client.user.username}#${client.user.discriminator}`);
 });
 
-Object.assign(String.prototype, {
-	escapeRegex() {
-		const matchOperators = /[|\\{}()[\]^$+*?.]/g;
-		return this.replace(matchOperators, "\\$&");
-	},
+client.on("guildCreate", guild => {
+	require("./Events/guildCreate")(client, winston, guild);
 });
-
-// Client.on("guildMemberAdd")
-
 
 client.login(settings.token);

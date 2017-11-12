@@ -1,26 +1,29 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const findOrCreate = require("mongoose-findorcreate");
-const serverSchema = require("./serverSchema.js");
-// Const userSchema = require("./userSchema.js");
-
-// Connect to and setup database
-module.exports = {
-	initialize: (url, callback) => {
-		mongoose.connect(url, {
-			autoReconnect: true,
-			connectTimeoutMS: 30000,
-			socketTimeoutMS: 30000,
-			keepAlive: 120,
-			poolSize: 100,
-		});
-
-		mongoose.model("servers", serverSchema);
-		// Mongoose.model("users", userSchema);
-
-		mongoose.connection.on("error", callback);
-		mongoose.connection.once("open", callback);
-	},
-	get: () => mongoose.models,
-	getConnection: () => mongoose.connection,
+const serverSchema = require("./serverSchema");
+const addToGlobal = (name, val) => {
+	global[name] = val;
 };
+exports.initialize = url => new Promise((resolve, reject) => {
+	mongoose.connect(url, {
+		useMongoClient: true,
+		promiseLibrary: global.Promise,
+	});
+	const [
+		Servers,
+	] = [
+		mongoose.model("servers", serverSchema),
+	];
+	mongoose.connection
+		.on("error", err => reject(err))
+		.once("open", () => {
+			addToGlobal("Servers", Servers);
+			addToGlobal("Database", {
+				Servers, servers: Servers,
+				Raw: mongoose.connection,
+			});
+			resolve(global.Database);
+		});
+});
+
+exports.get = exports.getConnection = () => global.Database;
