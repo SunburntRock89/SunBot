@@ -5,9 +5,9 @@ module.exports = async(client, msg, suffix) => {
 		embed: {
 			color: 0x5491F2,
 			author: {
-				name: "SunBot",
+				name: "Pong!",
 			},
-			description: `Pong! Took ${client.ping} :ping_pong:`,
+			description: `Took ${Math.floor(client.ping)}ms :ping_pong:`,
 			footer: {
 				text: `${settings.version}`,
 			},

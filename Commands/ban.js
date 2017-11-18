@@ -1,9 +1,19 @@
 const settings = require("../config.json");
 
-module.exports = async(client, msg, suffix) => {
-	let reason = msg.content.split(/\s+/g).slice(2).join(" ");
-	if (msg.mentions.users.size !== 0) {
-		msg.mentions.members.first().ban(reason).then(() => {
+module.exports = async(client, msg, suffix, serverDocument) => {
+	let member, reason;
+	if (suffix.indexOf("|") > -1 && suffix.length > 3) {
+		member = await client.memberSearch(suffix.substring(0, suffix.indexOf("|")).trim(), msg.guild).catch(() => {
+			member = null;
+		});
+		reason = suffix.substring(suffix.indexOf("|") + 1).trim();
+	} else {
+		member = await client.memberSearch(suffix, msg.guild).catch(() => {
+			member = null;
+		});
+	}
+	if (member) {
+		msg.guild.ban(member.id, 7).then(() => {
 			msg.channel.send({
 				embed: {
 					color: 0x5491F2,
@@ -15,13 +25,11 @@ module.exports = async(client, msg, suffix) => {
 						text: `You now have ${msg.guild.memberCount} members.`,
 					},
 				},
-			});
-		})
-			.catch(err => {
+			}).catch(err => {
 				msg.channel.send({
 					embed: {
 						color: 0xFF0000,
-						title: ":x: Error",
+						title: "❌ Error",
 						description: err.message,
 						footer: {
 							text: settings.version,
@@ -29,9 +37,6 @@ module.exports = async(client, msg, suffix) => {
 					},
 				});
 			});
-	} else {
-		// Msg.channel.guild.ban()
-		msg.reply("You need to mention the user you want to kick or mention them via their ID.");
+		});
 	}
-}
-;
+};
