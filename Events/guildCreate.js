@@ -9,22 +9,30 @@ module.exports = async(client, winston, svr) => {
 				} else {
 					newServerDocument.save();
 					svr.members.forEach(member => {
-						let staff = svr.roles.find("name", "Staff").id;
 						if (member.permissions.has("MANAGE_GUILD", true) || member.permissions.has("ADMINISTRATOR", true)) {
 							winston.log(`${member.username} has ADMINISTRATOR or MANAGE_GUILD.`);
 							if (!member.user.bot) {
-								newServerDocument.Config.admins.push({ _id: member.id, level: 3 });
-								winston.log(`${member.username} pushed.`);
-							}
-						} else if (member.roles.has(staff.id)) {
-							if (!member.user.bot && newServerDocument.config.admins.id(member.id) === null) {
-								newServerDocument.Config.admins.push({ _id: member.id, level: 2 });
-								winston.log(`${member.username} pushed.`);
+								if (newServerDocument.Config.admins.id(member.id) === null) {
+									newServerDocument.Config.admins.push({ _id: member.id, level: 3 });
+									winston.log(`${member.username} pushed.`);
+								}
 							}
 						}
-					});
-					newServerDocument.save().then(() => {
-						winston.log("Added all members with MANAGE_GUILD and ADMINISTRATOR to the admins array.");
+						newServerDocument.save().then(() => {
+							winston.log("Added all members with MANAGE_GUILD and ADMINISTRATOR to the admins array.");
+						});
+						if (svr.roles.find("name", "Staff").id !== null) {
+							let staff = svr.roles.find("name", "Staff");
+							if (member.roles.has(staff.id)) {
+								if (!member.user.bot && newServerDocument.Config.admins.id(member.id) === null) {
+									newServerDocument.Config.admins.push({ _id: member.id, level: 1 });
+									winston.log(`${member.username} pushed.`);
+								}
+							}
+						}
+						newServerDocument.save().then(() => {
+							winston.log("Added all members with the role \"Staff\" to the admins array.");
+						});
 					});
 				}
 			});
