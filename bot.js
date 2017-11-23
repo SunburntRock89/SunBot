@@ -24,7 +24,6 @@ database.initialize(settings.mongoURL).then(db => {
 
 client.on("message", async msg => {
 	let prefix = (await Servers.findOne({ _id: msg.guild.id })).Config.command_prefix;
-	console.log(prefix);
 	if (msg.author.bot) return null;
 	if (!msg.content.startsWith(prefix)) return null;
 	if (!msg.guild) return;
@@ -46,6 +45,7 @@ client.on("ready", () => {
 	client.user.setStatus("being developed by the best irish boy");
 	client.user.setStatus("online");
 	winston.info(`Logged in as ${client.user.username}#${client.user.discriminator}`);
+	require("./Events/ready")(client, winston);
 });
 
 client.memberSearch = (string, server) => new Promise((resolve, reject) => {
