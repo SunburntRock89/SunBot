@@ -1,3 +1,3 @@
-# SunBot 
+# SunBot (formally known as PoniJS)
 
-Made by SunburntRock89#6617 and Dan.#2518
+Made by SunburntRock89#6617
